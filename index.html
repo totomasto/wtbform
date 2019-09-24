@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wetterbest</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="font-awesome/css/font-awesome.css" rel="stylesheet"> -->
+
+    <!-- FooTable -->
+    <link href="css/plugins/footable/footable.core.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <style>.spot {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+    /*
+        This is the outer svg wrapper that the SVG itself will 
+        fill. Multiple svg-wrapper classes can be put side by side.
+    */
+    
+    .svg-wrapper {
+      margin-top: 0;
+      position: relative;
+      width: 150px;
+      /*make sure to use same height/width as in the html*/
+      height: 40px;
+      display: inline-block;
+      border-radius: 3px;
+      margin-left: 5px;
+      margin-right: 5px
+    }
+    /*
+      This is where we define the fill, color, thickness,
+      and stroke pattern of the SVG when there is no hover.
+      The dasharray and offset together define the line position
+      under the words. Here's also where the transition speed is set.
+    */
+    
+    #shape {
+      stroke-width: 6px;
+      fill: transparent;
+      stroke: green;
+      stroke-dasharray: 85 400;
+      stroke-dashoffset: -220;
+      transition: 1s all ease;
+    }
+    /* 
+        Pushing the text up into the SVG. Without this the
+        text would be below the div's.
+    */
+    
+    #text {
+      margin-top: -35px;
+      text-align: center;
+    }
+    
+    #text a {
+      color:black;
+      text-decoration: none;
+      font-weight: 200;
+      font-size: 1.4em;
+    }
+    /* 
+        Changing the shape on hover. I change the color of the stroke,
+    make it thinner, then set it to again wrap around the entire parent element.
+    */
+    
+    .svg-wrapper:hover #shape {
+      stroke-dasharray: 50 0;
+      stroke-width: 3px;
+      stroke-dashoffset: 0;
+      stroke: #06D6A0;
+    }
+    .loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+    </style>
+
+
+
+</head>
+
+<body onload="zoom(); " style="background-color :#038343">
+
+
+
+        <div id="wrapper" class="gray-bg">
+
+
+
+        <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+
+
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="ibox">
+                        <div class="ibox-content">
+
+
+
+                        <!-- PANEL TIGLA #1 -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="btn-group pull-left" style="display:inline;">
+            <div class="col-lg-2">
+          <h2><a data-toggle="collapse" onclick="collapseAll();" class="panel-title" href="#collapse1" >Tigla metalica</a></h2>
+        </div>
+        <div class="col-lg-2">
+        <select class="form-control input-sm " id="attribute1Tigla" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Tigla</option></select>
+      </div>
+        <div class="col-lg-2">
+        <select class="form-control input-sm " id="attribute2Tigla" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Structura</option></select>
+      </div>
+      <div class="col-lg-2">
+        <select class="form-control input-sm " id="attribute3Tigla" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Grosime</option></select>
+      </div>
+      <div class="col-lg-2">
+        <select class="form-control input-sm " id="dripstopTigla" onchange="recordInputs(this.id, this.value);" style="display:inline; width:150px;">
+          <option selected="" value="NU">Drip-NU</option>
+          <option value="DA">Drip-DA</option>
+        </select>
+      </div>
+      <div class="col-lg-2">
+        <select class="form-control input-sm " id="culoareTigla" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Culoare</option></select>
+      </div>
+      </div>
+      <span class="clearfix"></span>
+
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+    <div class="panel-body">
+
+      <div class="col-lg-6">
+      <table id="dimensiuniTiglaPredef"class="table table-bordered">
+
+        <thead>
+        <tr>
+
+            <th>Lungime</th>
+            <th>Latime</th>
+            <th>Bucati</th>
+
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+
+
+
+          </tr>
+
+        </tbody>
+      </table>
+      </div>
+      <div class="col-lg-6">
+        <table id="dimensiuniTiglaAtipic" class="table table-bordered">
+
+          <thead>
+          <tr>
+
+              <th>Lungime</th>
+              <th>Latime</th>
+              <th>Bucati</th>
+
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+
+
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+
+
+
+    </div>
+  </div>
+  </div>
+        <!--    END PANEL TIGLA    -->
+
+
+
+
+
+
+          <!-- PANEL ACCESORII #2 -->
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="btn-group pull-left" style="display:inline;">
+                    <div class="col-lg-3">
+                  <h2><a data-toggle="collapse" onclick="collapseAll();" class="panel-title" href="#collapse2" >Accesorii</a></h2>
+                </div>
+                <div class="col-lg-3">
+                <select class="form-control input-sm " id="attribute1Acc" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Structura</option></select>
+              </div>
+                <div class="col-lg-3">
+                <select class="form-control input-sm " id="attribute2Acc" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Grosime</option></select>
+              </div>
+              <div class="col-lg-3">
+                <select class="form-control input-sm " id="culoareAcc" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Culoare</option></select>
+              </div>
+              </div>
+              <span class="clearfix"></span>
+
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+                                      <div class="col-lg-6">
+                                      <table id="tableAccesorii"class="table table-bordered">
+
+                                        <thead>
+                                        <tr>
+
+                                            <th>Produs</th>
+                                            <th>Bucati</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                      </div>
+                                      <div class="col-lg-6">
+
+                                        <table id="dimensiuniBorduri" class="table table-bordered">
+
+                                          <thead>
+                                          <tr>
+                                              <th></th>
+                                              <th>Lungime</th>
+                                              <th>Latime</th>
+                                              <th>Bucati</th>
+
+                                          </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+
+    <!--    END PANEL ACCESORII    -->
+
+
+
+
+              <!-- PANEL DRENAJ #3 -->
+
+
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="btn-group pull-left" style="display:inline;">
+                        <div class="col-lg-3">
+                      <h2><a data-toggle="collapse" onclick="collapseAll();" class="panel-title" href="#collapse3" >Drenaj	&nbsp;	&nbsp;</a></h2>
+                    </div>
+                    <div class="col-lg-3">
+                    <select class="form-control input-sm " id="attribute1Drenaj" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Tip</option></select>
+                  </div>
+                    <div class="col-lg-3">
+                    <select class="form-control input-sm " id="attribute2Drenaj" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Dimensiune</option></select>
+                  </div>
+                  <div class="col-lg-3">
+                    <select class="form-control input-sm " id="culoareDrenaj" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Culoare</option></select>
+                  </div>
+                  </div>
+                  <span class="clearfix"></span>
+
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+                                          <div class="col-lg-6">
+                                          <table id="tableDrenaj"class="table table-bordered">
+
+                                            <thead>
+                                            <tr>
+
+                                                <th>Produs</th>
+                                                <th>Bucati</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                    </div>
+
+
+
+        <!--    END PANEL DRENAJ    -->
+
+
+<hr>
+
+
+        <!-- PANEL MEMBRANE SI ACCESORII #4 -->
+
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="btn-group pull-left" style="display:inline;">
+                  <!--  this category does not have any attributes so we have to show products on panel collapse , see membrane.js-->
+                <h2><a data-toggle="collapse" id="section1" onclick="collapseAll(); recordInputs(this.id, this.value);" class="panel-title" href="#collapse4" >Membrane si accesorii</a></h2>
+
+
+            </div>
+            <span class="clearfix"></span>
+
+          </div>
+          <div id="collapse4" class="panel-collapse collapse">
+          <div class="panel-body">
+                                    <div class="col-lg-6">
+                                    <table id="membrane1"class="table table-bordered">
+
+                                      <thead>
+                                      <tr>
+
+                                          <th>Produs</th>
+                                          <th>Bucati</th>
+
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    </div>
+                                    <div class="col-lg-6">
+
+                                      <table id="membrane2" class="table table-bordered">
+
+                                        <thead>
+                                        <tr>
+
+                                            <th>Produs</th>
+                                            <th>Bucati</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+
+
+  <!--    END PANEL MEMBRANE SI ACCESORII    -->
+
+
+
+
+  <!-- PANEL SURUBURII #5 -->
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="btn-group pull-left" style="display:inline;">
+            <!--  this category does not have any attributes so we have to show products on panel collapse , see membrane.js-->
+          <h2><a data-toggle="collapse" id="section2" onclick=" collapseAll(); recordInputs(this.id, this.value);" class="panel-title" href="#collapse5" >Suruburi</a></h2>
+
+
+      </div>
+      <span class="clearfix"></span>
+
+    </div>
+    <div id="collapse5" class="panel-collapse collapse">
+    <div class="panel-body">
+                              <div class="col-lg-6">
+                              <table id="suruburi1"class="table table-bordered">
+
+                                <thead>
+                                <tr>
+
+                                    <th>Produs</th>
+                                    <th>Bucati</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+
+                                  </tr>
+                                </tbody>
+                              </table>
+                              </div>
+                              <div class="col-lg-6">
+
+                                <table id="suruburi2" class="table table-bordered">
+
+                                  <thead>
+                                  <tr>
+
+                                      <th>Produs</th>
+                                      <th>Bucati</th>
+
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+<!--    END PANEL SURUBURII    -->
+
+
+
+
+<!-- PANEL FEREASTRA RAMA #6 -->
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="btn-group pull-left" style="display:inline;">
+          <!--  this category does not have any attributes so we have to show products on panel collapse , see membrane.js-->
+        <h2><a data-toggle="collapse" id="section3" onclick=" collapseAll(); recordInputs(this.id, this.value);"  class="panel-title" href="#collapse6" >Fereastra sau rama</a></h2>
+
+
+    </div>
+    <span class="clearfix"></span>
+
+  </div>
+  <div id="collapse6" class="panel-collapse collapse">
+  <div class="panel-body">
+                            <div class="col-lg-6">
+                            <table id="fereastra1"class="table table-bordered">
+
+                              <thead>
+                              <tr>
+
+                                  <th>Modul 1</th>
+                                  <th>Modul 2</th>
+
+                              </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+
+                                </tr>
+                              </tbody>
+                            </table>
+                            </div>
+                            <div class="col-lg-6">
+
+                              <table id="fereastra2" class="table table-bordered">
+
+                                <thead>
+                                <tr>
+
+                                    <th>Modul 3</th>
+                                    <th>Modul 4</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+<!--    END PANEL FEREASTRA RAMA   -->
+
+   <!-- PANEL SCULE #11 -->
+
+
+   <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="btn-group pull-left" style="display:inline;">
+            <!--  this category does not have any attributes so we have to show products on panel collapse , see membrane.js-->
+          <h2><a data-toggle="collapse" id="section4" onclick="collapseAll(); recordInputs(this.id, this.value);" class="panel-title" href="#collapse11" >Scule</a></h2>
+
+
+      </div>
+      <span class="clearfix"></span>
+
+    </div>
+    <div id="collapse11" class="panel-collapse collapse">
+    <div class="panel-body">
+                              <div class="col-lg-6">
+                              <table id="tableScule"class="table table-bordered">
+
+                                <thead>
+                                <tr>
+
+                                    <th>Produs</th>
+                                    <th>Bucati</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+
+                                  </tr>
+                                </tbody>
+                              </table>
+                              </div>
+                             
+                            </div>
+                          </div>
+                        </div>
+
+
+
+<!--    END PANEL SCULE    -->
+
+
+
+
+<hr>
+
+
+<!-- PANEL CLICK - TABLA + ACCESORII #7 -->
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="btn-group pull-left" style="display:inline;">
+          <div class="col-lg-6">
+        <h2><a data-toggle="collapse" class="panel-title" onclick="collapseAll();" href="#collapse7" >Tabla-Accesorii  Click </a></h2>
+      </div>
+      <div class="col-lg-4">
+      <select class="form-control input-sm " id="attribute1Click" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Structura/Grosime</option></select>
+    </div>
+      <div class="col-lg-2">
+      <select class="form-control input-sm " id="culoareClick" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Culoare</option></select>
+    </div>
+    </div>
+    <span class="clearfix"></span>
+
+  </div>
+  <div id="collapse7" class="panel-collapse collapse">
+  <div class="panel-body">
+                            <div class="col-lg-4">
+                            <table id="tableClickAcc"class="table table-bordered">
+
+                              <thead>
+                              <tr>
+
+                                  <th>Produs</th>
+                                  <th>Bucati</th>
+
+                              </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+
+                                </tr>
+                              </tbody>
+                            </table>
+                            </div>
+                            <div class="col-lg-4">
+
+                              <table id="tableClickTabla1" class="table table-bordered">
+
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Lungime</th>
+                                    <th>Latime</th>
+                                    <th>Bucati</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+
+                            <div class="col-lg-4">
+
+                              <table id="tableClickTabla2" class="table table-bordered">
+
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Lungime</th>
+                                    <th>Latime</th>
+                                    <th>Bucati</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+<!--    END PANEL  CLICK - TABLA + ACCESORII    -->
+
+
+
+<!-- PANEL CUTATA #8 -->
+<div class="panel panel-default">
+<div class="panel-heading">
+<div class="btn-group pull-left" style="display:inline;">
+<div class="col-lg-2">
+<h2><a data-toggle="collapse" class="panel-title" onclick="collapseAll();" href="#collapse8" >Tabla Cutata</a></h2>
+</div>
+<div class="col-lg-2">
+<select class="form-control input-sm " id="attribute1Cutata" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Cutata</option></select>
+</div>
+<div class="col-lg-2">
+<select class="form-control input-sm " id="attribute2Cutata" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Structura</option></select>
+</div>
+<div class="col-lg-2">
+<select class="form-control input-sm " id="attribute3Cutata" onchange="recordInputs(this.id, this.value);" style="display:inline; width:200px;"><option>Grosime</option></select>
+</div>
+<div class="col-lg-2">
+  <select class="form-control input-sm " id="dripstopCutata" onchange="recordInputs(this.id, this.value);" style="display:inline; width:130px;">
+    <option selected="" value="NU">Drip-NU</option>
+    <option value="DA">Drip-DA</option>
+  </select>
+  </div>
+<div class="col-lg-2">
+<select class="form-control input-sm " id="culoareCutata" style="display:inline; width:200px;"><option>Culoare</option></select>
+</div>
+
+</div>
+<span class="clearfix"></span>
+
+</div>
+<div id="collapse8" class="panel-collapse collapse">
+<div class="panel-body">
+
+<div class="col-lg-6">
+<table id="dimensiuniCutataAtipic" class="table table-bordered">
+
+<thead>
+<tr>
+
+<th>Lungime</th>
+<th>Latime</th>
+<th>Bucati</th>
+
+</tr>
+</thead>
+<tbody>
+<tr>
+
+
+
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+</div>
+</div>
+<!--    END PANEL CUTATA    -->
+
+
+
+          <!-- PANEL MINIRULOU #2 -->
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="btn-group pull-left" style="display:inline;">
+                    <div class="col-lg-3">
+                  <h2><a data-toggle="collapse" class="panel-title" onclick="collapseAll();" href="#collapse9" >Minirulou</a></h2>
+                </div>
+                <div class="col-lg-3">
+                <select class="form-control input-sm " onchange="recordInputs(this.id, this.value);" id="attribute1Minirulou" style="display:inline; width:200px;"><option>Structura</option></select>
+              </div>
+                <div class="col-lg-3">
+                <select class="form-control input-sm " onchange="recordInputs(this.id, this.value);" id="attribute2Minirulou" style="display:inline; width:200px;"><option>Grosime</option></select>
+              </div>
+              <div class="col-lg-3">
+                <select class="form-control input-sm " onchange="recordInputs(this.id, this.value);" id="culoareMinirulou" style="display:inline; width:200px;"><option>Culoare</option></select>
+              </div>
+              </div>
+              <span class="clearfix"></span>
+
+            </div>
+            <div id="collapse9" class="panel-collapse collapse">
+            <div class="panel-body">
+
+                                      <div class="col-lg-9">
+
+                                        <table id="dimensiuniMinirulou" class="table table-bordered">
+
+                                          <thead>
+                                          <tr>
+
+                                              <th>Lungime</th>
+                                              <th>Latime</th>
+                                              <th>Bucati</th>
+
+                                          </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+
+    <!--    END PANEL ACCESORII    -->
+
+
+
+
+    <!-- PANEL SIPCA #10 -->
+
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="btn-group pull-left" style="display:inline;">
+              <div class="col-lg-6">
+            <h2><a data-toggle="collapse" class="panel-title" onclick="collapseAll();" href="#collapse10" >Sipca gard &nbsp;	&nbsp;	&nbsp; &nbsp;	&nbsp;	&nbsp; 	&nbsp;	&nbsp; </a></h2>
+          </div>
+          <div class="col-lg-4">
+          <select class="form-control input-sm " onchange="recordInputs(this.id, this.value);" id="attribute1Sipca" style="display:inline; width:200px;"><option>Structura/Grosime</option></select>
+        </div>
+          <div class="col-lg-2">
+          <select class="form-control input-sm " onchange="recordInputs(this.id, this.value);" id="culoareSipca" style="display:inline; width:200px;"><option>Culoare</option></select>
+        </div>
+        </div>
+        <span class="clearfix"></span>
+
+      </div>
+      <div id="collapse10" class="panel-collapse collapse">
+      <div class="panel-body">
+
+                                <div class="col-lg-9">
+
+                                  <table id="tableSipca" class="table table-bordered">
+
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Latime</th>
+                                        <th>Lungime</th>
+                                        <th>Bucati</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+
+
+                              </div>
+                            </div>
+                          </div>
+
+
+
+    <!--    END PANEL SIPCA   -->
+
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="ibox">
+                <div class="ibox-content">
+                          <img src='img/logo.jpg' height="100px" width="300px">	
+                  </div>
+                </div>
+             </div>
+          </div>
+
+
+
+
+
+
+
+      </div>
+   </div>
+ </div>
+
+
+ 
+
+
+
+
+                <!--  END PANELS ----------------------------------------------------------------------------------------------------------------------------------------------   -->
+                <div class="col-lg-4"  >
+                  <div class="ibox"  >
+                    <div class="ibox-content" >
+
+                      <table id="checkoutTable" class="table table-bordered">
+                          <thead>
+                          <tr>
+                              <th>Nume articol</th>
+                              <th>Lungime</th>
+                              <th>Latime</th>
+                              <th>Buc.</th>
+                              <th>Culoare</th>
+                              <th>MP</th>
+                              <th>Pret</th>
+                              <th>Total</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr>
+
+                          </tr>
+
+                          </tbody>
+                      </table>
+                      <h4>Subtotal : <text id="subTotal">0.00</text> EUR </h4>
+                      <hr>
+                      <h4>TVA : <text id="tva">0.00</text> EUR </h4>
+                      <hr>
+                      <h4>Total : <text id="total">0.00</text> EUR    
+                        <p style="text-align: right">Total MP Tigla :<text id="mpTigla">0.00</text></p>
+                        <p style="text-align: right" >Total MP Cutata : <text id="mpCutata">0.00</text> </p>
+                        <p style="text-align: right" >Total MP Minirulou : <text id="mpMinirulou">0.00</text> </p>
+                        <p style="text-align: right" >Total MP Click :<text id="mpClick">0.00</text></p>
+                        <p>Curs euro :<input id='cursEuro' class='form-control' style='width:100px;' onchange='findRonTotal(this.value)' type='number' min='0' value='0.00'/><br> Total RON fara TVA : <text id='totalRON'></text></p> 
+                        <hr>
+                        <h3 id="offerTitle">Apasa pentru oferta:</h3>
+                        <button class="btn btn-danger  btn-small" id="offerButton" onclick="offerMode()" >Mod ofertare </button>
+                        <button class="btn btn-danger btn-small" id="exportOffer" onclick="exportOffer()">Genereaza oferta</button>
+                        <hr>
+                        <div class="loader" style="display:none;" id="loader"></div>
+                      </h4>
+                      
+ <!-- <a href="/pdfInvoice/template.html" class="btn btn-success" ><span class="glyphicon glyphicon-file"></span> Exporta comanda PDF</a>
+ <a href="#" class="btn btn-info"><span class="glyphicon glyphicon-envelope"></span> Trimite comanda pe mail</a> -->
+ <!-- <button onclick="exportExcelOrder();" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt">   </span> Export to EXCEL</button> -->
+ 
+
+
+
+                  </div>
+            </div>
+
+
+            <div class="ibox" >
+                <div class="ibox-content">
+            
+                   
+                 
+                    <div class="col-sm-6">
+                    <input type="text" style="width:300px;" id="numeComanda" placeholder="Nume comanda" class="form-control" />  
+                    <br>
+                    <select type="text" style="width:300px;" id="judetComanda" class="form-control">
+                      <option selected="">Judet</option>
+                      <option value="ALBA">ALBA</option>
+                      <option value="ARAD">ARAD</option>
+                      <option value="ARGES">ARGES</option>
+                      <option value="BACAU">BACAU</option>
+                      <option value="BIHOR">BIHOR</option>
+                      <option value="BISTRITA-NASAUD">BISTRITA-NASAUD</option>
+                      <option value="BOTOSANI">BOTOSANI</option>
+                      <option value="BRAILA">BRAILA</option>
+                      <option value="BRASOV">BRASOV</option>
+                      <option value="BUZAU">BUZAU</option>
+                      <option value="CALARASI">CALARASI</option>
+                      <option value="CARAS-SEVERIN">CARAS-SEVERIN</option>
+                      <option value="CLUJ">CLUJ</option>
+                      <option value="CONSTANTA">CONSTANTA</option>
+                      <option value="COVASNA">COVASNA</option>
+                      <option value="DIMBOVITA">DIMBOVITA</option>
+                      <option value="DOLJ">DOLJ</option>
+                      <option value="GALATI">GALATI</option>
+                      <option value="GIURGIU">GIURGIU</option>
+                      <option value="GORJ">GORJ</option>
+                      <option value="HARGHITA">HARGHITA</option>
+                      <option value="HUNEDOARA">HUNEDOARA</option>
+                      <option value="IALOMITA">IALOMITA</option>
+                      <option value="IASI">IASI</option>
+                      <option value="ILFOV">ILFOV</option>
+                      <option value="MARAMURES">MARAMURES</option>
+                      <option value="MEHEDINTI">MEHEDINTI</option>
+                      <option value="MURES">MURES</option>
+                      <option value="NEAMT">NEAMT</option>
+                      <option value="NECUNOSCUT">NECUNOSCUT</option>
+                      <option value="OLT">OLT</option>
+                      <option value="PRAHOVA">PRAHOVA</option>
+                      <option value="SALAJ">SALAJ</option>
+                      <option value="SATU MARE">SATU MARE</option>
+                      <option value="SIBIU">SIBIU</option>
+                      <option value="SUCEAVA">SUCEAVA</option>
+                      <option value="TELEORMAN">TELEORMAN</option>
+                      <option value="TIMIS">TIMIS</option>
+                      <option value="TULCEA">TULCEA</option>
+                      <option value="VASLUI">VASLUI</option>
+                      <option value="VILCEA">VILCEA</option>
+                      <option value="VRANCEA">VRANCEA</option>
+                        
+                    </select>
+                    <br>
+                    <input type="text" style="width:300px;" id="orasComanda" placeholder="Oras"  class="form-control"/> 
+                    <br>
+                    <input type="text" style="width:300px;" id="adresaComanda" placeholder="Adresa"  class="form-control"/>
+                    <br>
+                    <input type="text" style="width:300px;" id="telComanda" placeholder="Telefon"  class="form-control"/>
+                    <hr>
+                    <label for="">Data livrare *</label>
+                  <input type="date" style="width:300px;" id="dataLivrare"  class="form-control"/>
+                  </div>
+                  <div class="col-sm-6">
+                    <select style="width:300px;" id="docPlata" class="form-control">
+                      <option selected>Doc. plata</option>
+                      <option value="OP">OP</option>
+                      <option value="BO">BO</option>
+                      <option value="CEC">CEC</option>
+                      <option value="CASH">CASH</option>
+                    </select>
+                    <br>
+                    <select style="width:300px;" id="zilePlata" class="form-control">
+                      <option selected>Zile</option>
+                      <option value="1">1</option>
+                      <option value="3">3</option>
+                      <option value="5">5</option>
+                      <option value="7">7</option>
+                      <option value="15">15</option>
+                      <option value="20">20</option>
+                      <option value="25">25</option>
+                      <option value="30">30</option>
+                      <option value="35">35</option>
+                      <option value="45">45</option>
+                      <option value="60">60</option>
+                    </select>
+                    <br>
+                    <select style="width:300px;" id="livrare" class="form-control">
+                      <option selected>Livrare cu</option>
+                      <option value="Factura">Factura</option>
+                      <option value="Aviz">Aviz</option>
+                    </select>
+                    <br>
+                    <select style="width:300px;" id="agent" class="form-control"><option selected>Agent</option></select>
+                    <br>
+                    <select style="width:300px;" id="sofer" class="form-control">
+                    <option selected>Soferul incaseaza/ridica</option>
+                    <option value="NU RIDICA">NU RIDICA</option>
+                    <option value="Document plata">Document plata</option>
+                    <option value="Incanseaza cash">Incaseaza cash</option>
+                    </select>
+                    <br>
+                    <label for="">Observatii</label>
+                    <textarea name="" id="obs" cols="40" rows="5" class="form-control"></textarea>
+                   
+                  </div>
+               
+                  
+               
+                  
+                  
+                    
+                 
+                    
+               
+                 
+                    <hr>
+                    <div class="svg-wrapper">
+                        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                          <rect id="shape" height="40" width="150" />
+                          <div id="text">
+                            <a onclick="exportExcelOrder();"><span class="spot"></span>Export EXCEL</a>
+                          </div>
+                        </svg>
+                      </div>
+                      <div class="svg-wrapper">
+                        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                          <rect id="shape" height="40" width="150" />
+                          <div id="text">
+                            <a onclick="document.getElementById('importExcel').click();"><span class="spot"></span>Import EXCEL</a><br>
+                            <input type="file" style="display:none" id="importExcel"/>
+                          </div>
+                        </svg>
+                      </div>
+
+                        </div>
+                       
+                  </div>
+
+
+            
+<!-- <div id="initCode">
+
+</div>  -->
+
+
+<hr><br>
+<div id="zoomControl">
+  <h2>Modifica dimensiunea aplicatiei : </h2>
+  <button class="btn btn-primary btn-small " onclick="zoomApp('in')">Zoom in (+)</button>
+  <button class="btn btn-primary btn-small " onclick="zoomApp('out')">Zoom out (-)</button>
+  
+  
+</div>       
+</div>
+        <!-- <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2017
+            </div>
+        </div> -->
+
+      
+
+
+
+        </div>
+
+
+
+    <!-- Mainly scripts -->
+
+    <script src="js/jquery-3.1.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="js/plugins/pace/pace.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+
+    <!-- FooTable -->
+    <script src="js/plugins/footable/footable.all.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+
+
+    <!-- Custom made -->
+    <script src="js/resources/app.js"></script>
+    <script src="js/resources/tigla.js"></script>
+    <script src="js/resources/accesorii.js"></script>
+    <script src="js/resources/drenaj.js"></script>
+    <script src="js/resources/membrane.js"></script>
+    <script src="js/resources/suruburi.js"></script>
+    <script src="js/resources/ferestre.js"></script>
+    <script src="js/resources/scule.js"></script>
+    <script src="js/resources/click.js"></script>
+    <script src="js/resources/cutata.js"></script>
+    <script src="js/resources/minirulou.js"></script>
+    <script src="js/resources/sipca.js"></script>
+
+
+    <script src="js/resources/price.js"></script>
+    <script src="js/resources/prices.js"></script>
+    <script src="js/resources/excel.js"></script>
+
+
+
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+
+        });
+
+        function zoom(){
+
+          if (window.screen.width  > 1440)  document.body.style.zoom = "90%";
+          if (window.screen.width <= 1440)  document.body.style.zoom = "74%";
+          if (window.screen.width <= 1366)  document.body.style.zoom = "70%";
+          if (window.screen.width <= 1360)  document.body.style.zoom = "65%";
+
+        }
+        
+
+        showProductsMembrane();
+        showProductsSuruburi();
+        showProductsFerestre();
+        showProductsScule();
+
+    </script>
+
+</body>
+
+</html>

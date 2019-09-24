@@ -1,0 +1,56 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome",
+      "price": "5.23"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome",
+      "price": "5.23"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome",
+      "price": "5.23"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome",
+      "price": 5.23
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesomfffe",
+      "price": 5.23
+    },
+    {
+      "id": 2,
+      "title": "lowdb is awesomfffe",
+      "price": 5.23
+    },
+    {
+      "id": 2,
+      "title": "lowdb is awesomfffe",
+      "price": 5.23
+    },
+    {
+      "id": 2,
+      "title": "lowdb is awesomfffe",
+      "price": 5.23
+    },
+    {
+      "id": 2,
+      "title": "lowdb is awesomfffe",
+      "price": 5.23
+    }
+  ],
+  "user": {
+    "name": "typicode"
+  }
+}

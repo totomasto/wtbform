@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wetterbest</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- FooTable -->
+    <link href="css/plugins/footable/footable.core.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+
+
+</head>
+
+<body onload="zoom();">
+
+
+
+        <div id="wrapper" class="gray-bg">
+
+
+
+        <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+
+
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="ibox">
+                        <div class="ibox-content">
+
+                          <table class="table table-bordered" id="excessTable">
+                                                      <thead>
+                                                      <tr>
+                                                         
+                                                          <th>Categorie</th>
+                                                          <th>Discount % </th>
+                                                      </tr>
+                                                      </thead>
+                                                      <tbody>
+
+
+
+
+                                                      </tbody>
+                                                  </table>
+
+
+                                </div>
+                             </div>
+                           </div>
+
+
+
+
+
+                                             </div>
+                                       </div>
+
+
+                                   </div>
+                                   
+
+
+                                   </div>
+
+
+                                   <script src="js/resources/app.js"></script>
+                                   <script src="js/resources/prices.js"></script>
+                                   <script src="js/resources/excess.js"></script>
+                                   
+                                
+                            
+                               <!-- Mainly scripts -->
+                               <script src="js/jquery-3.1.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+                               <script src="js/bootstrap.min.js"></script>
+                               <script src="js/plugins/metisMenu/jquery.metisMenu.js" onload="window.$ = window.jQuery = module.exports;"></script>
+                               <script src="js/plugins/slimscroll/jquery.slimscroll.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+
+                               <!-- Custom and plugin javascript -->
+                               <script src="js/inspinia.js" onload="window.$ = window.jQuery = module.exports;"></script>
+                               <script src="js/plugins/pace/pace.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+
+                               <!-- FooTable -->
+                               <script src="js/plugins/footable/footable.all.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+
+
+                               <!-- Custom made -->
+                               
+
+
+
+
+                               <!-- Page-Level Scripts -->
+                               <script>
+                                   $(document).ready(function() {
+
+                                       $('.footable').footable();
+
+                                   });
+
+                                   function zoom(){
+
+                                     if (window.screen.width  > 1440)   document.body.style.zoom = "90%";
+                                     if (window.screen.width <= 1440)  document.body.style.zoom = "74%";
+                                     if (window.screen.width <= 1366)  document.body.style.zoom = "70%";
+                                     if (window.screen.width <= 1360)  document.body.style.zoom = "65%";
+
+                                   }
+
+
+
+                               </script>
+
+                           </body>
+
+                           </html>
